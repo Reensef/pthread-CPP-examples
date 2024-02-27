@@ -3,59 +3,11 @@
 	"tasks": [
 		{
 			"type": "cppbuild",
-			"label": "Compile example one",
+			"label": "Compile",
 			"command": "c:\\msys64\\ucrt64\\bin\\g++.exe",
 			"args": [
 				"-fdiagnostics-color=always",
-				"${workspaceRoot}/example_one.cpp",
-				"--std=c++20",
-				"-lws2_32",
-				"-o",
-				"app.exe",
-				"--pthread",
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"type": "cppbuild",
-			"label": "Compile example two",
-			"command": "c:\\msys64\\ucrt64\\bin\\g++.exe",
-			"args": [
-				"-fdiagnostics-color=always",
-				"${workspaceRoot}/example_two.cpp",
-				"--std=c++20",
-				"-lws2_32",
-				"-o",
-				"app.exe",
-				"--pthread",
-			],
-			"options": {
-				"cwd": "${fileDirname}"
-			},
-			"problemMatcher": [
-				"$gcc"
-			],
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"type": "cppbuild",
-			"label": "Compile example three",
-			"command": "c:\\msys64\\ucrt64\\bin\\g++.exe",
-			"args": [
-				"-fdiagnostics-color=always",
-				"${workspaceRoot}/example_three.cpp",
+				"${workspaceRoot}/${input:src}",
 				"--std=c++20",
 				"-lws2_32",
 				"-o",
@@ -75,13 +27,27 @@
 		},
 		{
 			"type": "shell",
-			"label": "Run",
+			"label": "Compile & Run",
 			"command": "${fileDirname}\\app.exe",
 			"dependsOrder": "sequence",
+            "dependsOn": "Compile",
 			"group": {
 				"kind": "build",
 				"isDefault": true
 			}
 		}
+	],
+	"inputs": [
+		{
+			"type": "pickString",
+			"id": "src",
+			"description": "What programm do you want to run?",
+			"options": [
+				"example_one.cpp",
+                "example_two.cpp",
+                "example_three.cpp",
+			],
+			"default": "example_one.cpp"
+		  }
 	]
 }
